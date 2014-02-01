@@ -3,6 +3,7 @@ package main
 import (
 	"strconv"
 	"strings"
+	"os"
 )
 
 // parseUptimeInfo converts the raw uptime command output to an UptimeInfo
@@ -21,4 +22,14 @@ func parseUptimeInfo(b []byte) (*UptimeInfo, error) {
 		Fifteen: fifteen,
 	}
 	return ui, nil
+}
+
+// Exists reports whether the named file or directory exists.
+func exists(name string) bool {
+    if _, err := os.Stat(name); err != nil {
+    if os.IsNotExist(err) {
+                return false
+            }
+    }
+    return true
 }
